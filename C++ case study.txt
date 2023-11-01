@@ -1,0 +1,151 @@
+// // Online C++ compiler to run C++ program online
+#include <iostream>
+using namespace std;
+class Date{
+    private:
+    int dd,mm,yy;
+    public:
+    Date(int dd,int mm,int yy){
+        this->dd=dd;
+        this->mm=mm;
+        this->yy=yy;
+    }
+    void showdate(){
+        cout<< "\nDate is: "<<dd<<"-"<<mm<<"-"<<yy;
+    }
+};
+class Person{
+    private:
+    string Name;
+    Date DOB;
+    public:
+    Person(string Name,int dd,int mm,int yy)
+    :DOB(dd,mm,yy)
+    {
+        this->Name=Name;
+    }
+    void showPerson(){
+    
+        cout<<"\nPerson name is:"<<Name;
+        DOB.showdate();
+    }
+};
+
+class Emp : public Person 
+{
+    protected:
+    int id,sal;
+    public:
+    Emp(int id,int sal,string Name,int dd,int mm,int yy)
+   :Person(Name,dd,mm,yy)
+        {
+        this->id=id;
+        this->sal=sal;
+    }
+    
+void showemp(){
+     showPerson();
+    cout<<"\nemp id is:"<<id;
+    cout<<"\nemp sal is:"<<sal;
+
+}
+};
+
+class SM : public Emp
+{
+    private:
+    int target,km,cpk;
+    double comm;
+    double travel;
+    public:
+    SM(int target,int km,int cpk,int id,int sal,string Name,int dd,int mm,int yy)
+    :Emp(id,sal,Name,dd,mm,yy)
+    {
+        this->target=target;
+        this->km=km;
+        this->cpk=cpk;
+        
+    }
+
+void showSM(){
+     comm=target*0.2;
+     travel=km*cpk;
+     showemp();
+    cout<<"\nthe target is:"<<target;
+    cout<<"\nthe km is"<<km;
+    cout<<"\nthe cpk is"<<cpk;
+}
+double calsal(){
+    return comm+travel+sal;
+}
+    
+};
+
+class PM : public Emp
+{
+    private:
+    int km,cpk;
+    double travel;
+    string Pname;
+    public:
+    PM(int km,int cpk,string Pname,int id,int sal,string Name,int dd,int mm,int yy)
+    :Emp(id,sal,Name,dd,mm,yy)
+    {
+        this->km=km;
+        this->cpk=cpk;
+        this->Pname=Pname;
+        
+    }
+
+void showPM(){
+     travel=km*cpk;
+     showemp();
+    cout<<"\nthe km is"<<km;
+    cout<<"\nthe cpk is"<<cpk;
+}
+double calsal(){
+    return travel+sal;
+}
+    
+};
+
+class Admin : public Emp
+{
+    private:
+    int allowances;
+    string BU;
+    public:
+    Admin(int allowances,string BU,int id,int sal,string Name,int dd,int mm,int yy)
+    :Emp(id,sal,Name,dd,mm,yy)
+    {
+    
+        this->BU = BU ;
+        this->allowances=allowances;
+        
+    }
+
+void showAdmin(){
+   showemp();
+   cout<<"\nBU name is:"<<BU;
+}
+double calsal(){
+    return allowances+sal;
+}
+    
+};
+
+int main() {
+    SM S1(1000,15,1500,101,20000,"THV",30,12,1995);
+    S1.showSM();
+    cout<<"\ntotal sal of SM is :"<<S1.calsal();
+    cout<<"\n--------------";
+    PM P1(15,1200,"C++",101,20000,"THV",30,12,1995);
+    P1.showPM();
+    cout<<"\ntotal sal of PM is:"<<P1.calsal();
+     cout<<"\n--------------";
+  
+    Admin A1(15000,"IT",101,20000,"THV",30,12,1995);
+    A1.showAdmin();
+    cout<<"\ntotal sal of Admin is:"<<A1.calsal();
+    return 0;
+}
